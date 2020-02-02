@@ -1,7 +1,7 @@
 import requests
 
 API_URL = 'http://api.football-data.org/v2'
-AUTH_TOKEN = 'af49cecc6b5b49f4b3672792f258da97'
+AUTH_TOKEN = 'TOKEN'
 
 
 class API:
