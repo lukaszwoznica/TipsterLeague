@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load mathfilters %}
+{% load user_tags %}
+
+{% block title %}{% endblock %}
+
+{% block page-header %}
+    <div class="jumbotron jumbotron-fluid jumbotron-competition"
+         style="background-image: url('{{ STATIC_PREFIX }}{{ competition.emblem }}');
+                 {% if competition.theme_color_hex %}
+                     background-color: {{ competition.theme_color_hex }};
+                 {% endif %}">
+        <h1 class="text-center">{{ competition.name }}</h1>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="jumbotron-overlay pt-4">
+        <div class="row ">
+            <div class="d-flex col-4 justify-content-end align-items-center">
+                <a href="{% url 'competition_gameweek' competition.id gameweek_number|sub:1 %}">
+                    <button class="btn btn-outline-dark btn-circle">
+                        <i class="fas fa-arrow-left"></i>
+                    </button>
+                </a>
+            </div>
+            <div class="col-4">
+                <h2 class="text-center">Gameweek {{ gameweek_number }}</h2>
+            </div>
+            <div class="d-flex col-4 align-items-center">
+                <a href="{% url 'competition_gameweek' competition.id gameweek_number|add:1 %}">
+                    <button class="btn btn-outline-dark btn-circle">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </a>
+            </div>
+        </div>
+        <table class="table mt-4 table-hover">
+            {% for match in gameweek_matches %}
+                <tr class="border-bottom">
+                    <td class="text-center" style="width: 15%">{{ match.date|date:'d-m-Y H:i' }}</td>
+                    <td class="text-right" style="width: 30%">{{ match.home_team }}</td>
+                    <td class="text-center font-weight-bold" style="width: 10%">
+                        {% if match.status == "FI" %}
+                            {{ match.home_goals }} - {{ match.away_goals }}
+                        {% else %}
+                            -
+                        {% endif %}
+                    </td>
+                    <td style="width: 30%">{{ match.away_team }}</td>
+                    <td class="text-center" style="width: 15%">
+                        {% if user and match|is_predicted:user %}
+                            <button class="btn btn-danger disabled">Predicted</button>
+                        {% else %}
+                            <a href="{% url 'match-prediction' match.id %}">
+                                <button class="btn btn-green">Predict</button>
+                            </a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}

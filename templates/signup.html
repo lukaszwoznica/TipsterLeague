@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+{% block title %}Sign up to Tipster League{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-10 col-md-6 mt-4">
+            <div class="text-center">
+                <h1>Sign up</h1>
+            </div>
+            <div class="card my-4 p-4">
+                <form method="post">
+                    {% csrf_token %}
+                    {{ form|crispy }}
+{#                    <i class="password-icon fas fa-eye" id="passwordIcon"></i>#}
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-lg btn-green">Sign up</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        const pass_icon = document.createElement("I");
+        pass_icon.className = "password-icon fas fa-eye";
+        pass_icon.id = "passwordIcon";
+        const password_form_div = document.getElementById("div_id_password");
+        password_form_div.insertBefore(pass_icon, password_form_div.childNodes[3])
+    </script>
+    <script src="{% static "js/showHidePassword.js" %}" type="text/javascript"></script>
+{% endblock %}

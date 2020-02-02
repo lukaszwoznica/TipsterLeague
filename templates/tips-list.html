@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load bootstrap_pagination %}
+
+{% block title %}My tips list{% endblock %}
+
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-12">
+            <div class="text-center mt-4">
+                <h1>My tips</h1>
+            </div>
+            <div class="card my-4">
+                <div class="table-responsive">
+                    <table class="table serial table-hover">
+                        <thead>
+                        <tr>
+                            <th scope="col" class="text-center">#</th>
+                            <th scope="col">Match</th>
+                            <th scope="col" class="text-center">Result</th>
+                            <th scope="col" class="text-center">My prediction</th>
+                            <th scope="col">Status</th>
+                            <th scope="col" class="text-center">Correct result</th>
+                            <th scope="col" class="text-center">Correct score</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for tip in tips %}
+                            <tr class="border-bottom">
+                                <td class="text-center"></td>
+                                <td>{{ tip.match.home_team }} - {{ tip.match.away_team }}</td>
+                                <td class="text-center">
+                                    {% if tip.match.home_goals is not None and tip.match.away_goals is not None %}
+                                        {{ tip.match.home_goals }} - {{ tip.match.away_goals }}
+                                    {% else %}
+                                        -
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">{{ tip.home_goals }} - {{ tip.away_goals }}</td>
+                                <td>
+                                    {% if tip.status == "P" %}
+                                        Pending
+                                    {% elif tip.status == "S" %}
+                                        Settled
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    {% if tip.correct_match_result == None %}
+                                        -
+                                    {% elif tip.correct_match_result == True %}
+                                        <i class="fas fa-check-circle text-success"></i>
+                                    {% else %}
+                                        <i class="fas fa-times-circle text-danger"></i>
+                                    {% endif %}
+                                </td>
+                                <td class="text-center">
+                                    {% if tip.correct_score == None %}
+                                        -
+                                    {% elif tip.correct_score == True %}
+                                        <i class="fas fa-check-circle text-success"></i>
+                                    {% else %}
+                                        <i class="fas fa-times-circle text-danger"></i>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="d-flex justify-content-center mt-4">
+                    {% if page_obj.paginator.num_pages > 1 %}
+                        {% bootstrap_paginate page_obj range=10 show_first_last="true" url_view_name="tips-list-page" %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

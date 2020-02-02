@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin dashboard{% endblock %}
+
+{% block content %}
+    <div class="d-flex">
+        <div class="col-12">
+            <div class="text-center my-5">
+                <h1>Moderator Dashboard</h1>
+            </div>
+            <div class="card mt-4">
+                <div class="card-body px-0 pt-0">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead class="bg-dark text-white">
+                            <tr>
+                                <th scope="col" class="text-center">ID</th>
+                                <th scope="col">Competition name</th>
+                                <th scope="col">Last update</th>
+                                <th scope="col" class="text-center">Current gameweek</th>
+                                <th scope="col" class="text-center">Update</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for competition in competitions %}
+                                <tr class="border-bottom">
+                                    <td class="text-center">{{ competition.id }}</td>
+                                    <td>{{ competition.name }}</td>
+                                    <td>{{ competition.last_update|date:'d-m-Y H:i:s' }}</td>
+                                    <td class="text-center">{{ competition.current_gameweek }}</td>
+                                    <td class="text-center">
+                                        <a href="/moderator/update-competition/{{ competition.id }}"
+                                           class="btn btn-green">
+                                            Update
+                                        </a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="pl-4 mt-5 my-4">
+                        <a href="/moderator/add-competition" class="btn btn-secondary">Add competition</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

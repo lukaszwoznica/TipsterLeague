@@ -1,0 +1,242 @@
+:root {
+    --green: #37aa64;
+    --darker-green: #358f4c;
+    --darker2-green: #368140;
+}
+
+::selection {
+    color: #ffffff;
+    background: #373737;
+}
+
+::-moz-selection {
+    color: #ffffff;
+    background: #373737;
+}
+
+.bg-green {
+    background-color: var(--green);
+}
+
+/*
+    Basic Layout
+ */
+
+body {
+    min-height: 100vh;
+    position: relative;
+    margin: 0;
+    padding-bottom: 100px;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+    background-color: #f4f4f4;
+}
+
+.navbar {
+    background: rgb(20, 20, 20);
+    background: linear-gradient(150deg, rgba(20, 20, 20, 1) 0%, rgba(41, 41, 41, 1) 42%, rgba(55, 55, 55, 1) 100%);
+    transition: opacity .3s linear;
+}
+
+.navbar.sticky {
+    opacity: 0.8;
+}
+
+.navbar.sticky:hover {
+    opacity: 1;
+}
+
+.nav-item {
+    text-align: center;
+}
+
+.jumbotron {
+    height: 65vh;
+    margin: 0;
+    background-color: #ccc;
+}
+
+.jumbotron-dark {
+    background-color: #414141;
+}
+
+.jumbotron-overlay {
+    position: relative;
+    top: -30vh;
+    background: #fff;
+}
+
+.jumbotron-competition {
+    background-repeat: no-repeat;
+    background-size: auto 30vh;
+    background-position: top 3vh left 15vw;
+}
+
+@media (max-width: 768px) {
+    .jumbotron-competition {
+        background-repeat: no-repeat;
+        background-size: auto 30vh;
+        background-position: top 3vh left 5vw;
+    }
+}
+
+@media (max-width: 576px) {
+    .jumbotron-competition {
+        background-repeat: no-repeat;
+        background-size: auto 20vh;
+        background-position: top 10vh left 5vw;
+    }
+}
+
+.footer {
+  background-color: rgba(30, 30, 30, 0.95);
+  padding: 5px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  min-height: 60px;
+}
+
+.competition-logo {
+    width: 20px;
+    height: auto;
+    margin-right: 1.5rem;
+}
+
+.competition-logo img {
+    width: 100%;
+    max-height: 30px;
+}
+
+/*
+    Lists
+ */
+
+.list-group a {
+    color: #212529;
+    text-decoration: none;
+}
+
+.list-group-item.active {
+    background-color: var(--green);
+    border-color: var(--darker-green);
+}
+
+.list-group-item:hover {
+    background-color: #ededed;
+}
+
+.list-group-item.active:hover {
+    background-color: var(--green);
+}
+
+.dropdown-item.active, .dropdown-item:active {
+    background-color: var(--green);
+}
+
+/*
+    Tables
+ */
+
+tr.border-bottom td {
+    border-bottom: 1px solid #dee2e6;
+}
+
+table.serial {
+    counter-reset: row-number;
+}
+
+table.serial td:first-child:before {
+    counter-increment: row-number;
+    content: counter(row-number);
+}
+
+/*
+    Buttons
+ */
+
+.btn-circle {
+    border-radius: 90px;
+    border: 2px solid
+}
+
+.btn-green {
+    color: #ffffff;
+    background-color: var(--green);
+    border-color: var(--green);
+}
+
+.btn-green:hover, .btn-green:active {
+    color: #ffffff;
+    background-color: var(--darker-green);
+    border-color: var(--darker2-green);
+}
+
+.btn-green:focus {
+    color: #ffffff;
+    background-color: var(--darker-green);
+    border-color: var(--darker2-green);
+    box-shadow: 0 0 0 .2rem rgba(55, 170, 100, 0.5);
+}
+
+.btn.disabled {
+    cursor: not-allowed;
+}
+
+.btn.disabled:focus {
+    box-shadow: none;
+}
+
+/*
+    Forms
+ */
+
+.form-control:focus {
+    border-color: #686868;
+    box-shadow: 0 0 0 .2rem rgba(144, 141, 138, 0.3);
+}
+
+.form-group {
+    position: relative;
+}
+
+.password-icon {
+    position: absolute;
+    top: 43px;
+    right: 30px;
+    color: #9e9e9e;
+    cursor: pointer;
+    z-index: 100;
+    transition: color .6s;
+}
+
+.password-icon.active {
+    color: var(--green);
+}
+
+/*
+    Paginator
+ */
+
+.page-link {
+    color: #212529;
+}
+
+.page-link:focus {
+    box-shadow: none;
+}
+
+.page-item.disabled .page-link {
+    color: #9e9e9e;
+}
+
+.page-link:hover {
+    color: var(--darker2-green);
+}
+
+.page-item.active .page-link {
+    background-color: var(--green);
+    border-color: var(--darker-green);
+}

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Tipster League{% endblock %}
+
+{% block body_style %}
+    style="background-image: url('{{ STATIC_PREFIX }}img/background.png')"
+{% endblock %}
+
+{% block page-header %}
+    <div class="jumbotron jumbotron-fluid bg-transparent">
+        <h1 class="text-center display-4 text-white">Welcome to Tipster League</h1>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <div class="jumbotron-overlay">
+        <div class="d-flex">
+            <div class="col-md-4 bg-light">
+                <div class="card border-white bg-transparent pt-2">
+                    <div class="card-body">
+                        <h3>Competitions</h3>
+                        <ul class="list-group mt-4">
+                            {% for competition in competitions reversed %}
+                                <a href="/{{ competition.id }}">
+                                    <li class="d-flex list-group-item {% if comp_id == competition.id %}active{% endif %} }">
+                                        {% if competition.emblem %}
+                                            <div class="competition-logo pull-left">
+                                                <img src="{{ STATIC_PREFIX }}{{ competition.emblem }}" alt="Logo">
+                                            </div>
+                                        {% endif %}
+                                        {{ competition.name }}
+                                    </li>
+                                </a>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card border-white pt-2">
+                    <div class="card-body">
+                        <h3>Last gameweek</h3>
+                        <table class="table mt-4 table-hover">
+                            {% for match in last_gameweek %}
+                                <tr class="border-bottom">
+                                    <td class="text-right" style="width: 45%">{{ match.home_team }}</td>
+                                    <td class="text-center font-weight-bold" style="width: 10%">{{ match.home_goals }}
+                                        - {{ match.away_goals }}</td>
+                                    <td style="width: 45%">{{ match.away_team }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                        <div class="text-center mt-5 mb-3">
+                            <a href="/competition/{{ comp_id }}">
+                                <button class="btn btn-dark">Predict {{ comp_name }} matches</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
